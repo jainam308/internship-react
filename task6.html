@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<style>
+  body{
+
+    background:gray;
+  }
+  .heading{
+    text-align: center;
+  }
+  .t1{
+    background-color: gray;
+  }
+</style>
+<body>
+  <h1 class="heading"><u>Person's Data</u></h1>
+  <div class="row">
+    <div class="col">
+   
+    </div>
+  </div>
+    <table class="table table-hover table-dark  table-responsive table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">City</th>
+            <th scope="col">profilepic</th>
+            <th scope="col" > 
+              <input type="search" id="form1" size="5" class="form-control" placeholder="Search Data"/>
+              <select id="option">
+                <option value="name">name</option>
+                <option value="id">id</option>
+                <option value="city">city</option>
+            </select>
+            <input type="text" name="filter" placeholder="Search" id="search" oninput="onInput" />
+          </tr>
+       
+        
+        </thead>
+        <tbody id="tbody">
+      
+        </tbody>
+      </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script>
+
+        const pepolearray = [
+   {
+     id: 1,
+     name: 'Jainam vora',
+     city: 'Surendranagar',
+      profilepic: 'images/c5.jpg',
+   },
+   {
+     id: 2,
+     name: 'Udit Vegad',
+     city: 'dwarka',
+     profilepic:'images/c1.jpg',
+   },
+   {
+     id: 3,
+     name: 'Yug',
+     city: 'Chicago',
+     profilepic: 'images/c2.jpg',
+   },
+   {
+     id: 4,
+     name: 'Kavy',
+     city: 'rajkot',
+     profilepic: 'images/c3.jpg',
+   },
+   {
+     id: 5,
+     name: 'Harsh',
+     city: 'london',
+     profilepic: 'images/c4.jpg',
+   },  
+ ];
+//  console.table(pepolearray);
+
+
+
+table = document.getElementById('tbody');
+
+pepolearray.forEach((p) => {
+    table.innerHTML += `
+        <tr>
+            <td class = ''>${p.id}</td>
+            <td class = ''>${p.name}</td>
+            <td class = ''>${p.city}</td>
+         
+            <td><img src = '${p.profilepic}' style = "height:80px;margin-left:15px"></td>
+        </tr>`;
+});
+function handleSearch() {
+      const searchInput = document.getElementById('form1');
+      const searchTerm = searchInput.value.toLowerCase(); // Convert input to lowercase for case-insensitive search
+      
+      // Filter the data based on the search term
+      const filteredData = pepolearray.filter((p) => {
+        return p.name.toLowerCase().includes(searchTerm) || p.city.toLowerCase().includes(searchTerm);
+      });
+      
+      // Populate the table with filtered data
+      const table = document.getElementById('tbody');
+      table.innerHTML = '';
+      filteredData.forEach((p) => {
+        table.innerHTML += `
+            <tr>
+                <td class = ''>${p.id}</td>
+                <td class = ''>${p.name}</td>
+                <td class = ''>${p.city}</td>
+                <td><img src='${p.profilepic}' style="height:80px;margin-left:15px"></td>
+            </tr>`;
+      });
+    }
+
+    // Add an event listener to the search input field
+    const searchInput = document.getElementById('form1');
+    searchInput.addEventListener('input', handleSearch);
+    
+        const Element = document.getElementById("tbody");
+        const tr = document.getElementById("mytr");
+
+        const select = document.getElementById("option");
+        function default_action() {
+            peopleArray.forEach(arr => {
+                return Element.innerHTML += `<tr>
+                            <td>${arr.person_id}</td>
+                            <td>${arr.name}</td>
+                            <td>${arr.city}</td>
+                            <td class='flex'><img src="${arr.profile_pic}" alt=""></td>
+                        </tr>`
+
+            })
+        };
+        function ChangeArray(array, type, text) {
+
+            Element.innerHTML = "";
+            if (!text) return default_action();
+            switch (type) {
+                case "name":
+                    array.filter(arr => {
+                        // console.log(arr.name.toLowerCase().includes(text));
+                        if (arr.name.toLowerCase().includes(text)) {
+                            console.log("yes")
+                            return Element.innerHTML += `<tr>
+                            <td>${arr.person_id}</td>
+                            <td>${arr.name}</td>
+                            <td>${arr.city}</td>
+                            <td><img src="${arr.profile_pic}" alt=""></td>
+                        </tr>`
+                        }
+                    })
+                    break;
+                case "id":
+                    array.filter(arr => {
+                        if (arr.person_id == parseInt(text)) {
+                            return Element.innerHTML += `<tr>
+                            <td>${arr.person_id}</td>
+                            <td>${arr.name}</td>
+                            <td>${arr.city}</td>
+                            <td><img src="${arr.profile_pic}" alt=""></td>
+                        </tr>`
+                        }
+                    })
+                    break;
+                case "city":
+                    array.filter(arr => {
+                        if (arr.city.toLowerCase().includes(text)) {
+                            return Element.innerHTML += `<tr>
+                            <td>${arr.person_id}</td>
+                            <td>${arr.name}</td>
+                            <td>${arr.city}</td>
+                            <td><img src="${arr.profile_pic}" alt=""></td>
+                        </tr>`
+                        }
+                    })
+                    break;
+                default:
+                    default_action();
+                    break;
+            }
+        }
+        ChangeArray(peopleArray);
+        document.getElementById("search").addEventListener("keypress", onInput);
+        function onInput(event) {
+            let option = select.value;
+            // if enter key 
+            if (event.keyCode === 13) {
+                console.log(event.target.value, option);
+                ChangeArray(peopleArray, option, event.target.value);
+            }
+        }
+
+// Call the function to populate the table on page load
+window.onload = populateTable;
+
+ </script>
+</body>
+</html>
