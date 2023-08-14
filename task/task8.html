@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Masonry Layout con CSS Grid</title>
+    <style>
+        body {
+            background-color: #eee;
+        }
+
+        .hello {
+            opacity: 1 !important;
+        }
+
+        .full {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .gallery {
+            display: grid;
+            grid-gap: 8px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+
+        .gallery img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 16px #333;
+            transition: all 1.5s ease;
+        }
+
+        .gallery img:hover {
+            box-shadow: 0 0 32px #333;
+        }
+
+        .gallery .content {
+            padding: 4px;
+        }
+
+        .gallery .gallery-item {
+            transition: transform 300ms ease, all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .gallery .gallery-item:hover {
+            transform: scale(1.025);
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+            }
+        }
+
+        @media (max-width: 400px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+            }
+        }
+
+        @keyframes zoomin {
+            0% {
+                max-width: 50%;
+                transform: rotate(-30deg);
+                filter: blur(4px);
+            }
+            30% {
+                filter: blur(4px);
+                transform: rotate(-80deg);
+            }
+            70% {
+                max-width: 50%;
+                transform: rotate(45deg);
+            }
+            100% {
+                max-width: 100%;
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Jainam's Gallery</h1>
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        // Array of image URLs
+        const imageUrls = [
+            "https://source.unsplash.com/random/?tech,care",
+    "https://source.unsplash.com/random/?tech,studied",
+    "https://source.unsplash.com/random/?tech,substance",
+    "https://source.unsplash.com/random/?tech,choose",
+    "https://source.unsplash.com/random/?tech,past",
+    "https://source.unsplash.com/random/?tech,lamp",
+    "https://source.unsplash.com/random/?tech,yet",
+    "https://source.unsplash.com/random/?tech,eight",
+    "https://source.unsplash.com/random/?tech,crew",
+    "https://source.unsplash.com/random/?tech,event",
+    "https://source.unsplash.com/random/?tech,instrument",
+    "https://source.unsplash.com/random/?tech,practical",
+    "https://source.unsplash.com/random/?tech,pass",
+    "https://source.unsplash.com/random/?tech,bigger",
+    "https://source.unsplash.com/random/?tech,number",
+    "https://source.unsplash.com/random/?tech,feature",
+    "https://source.unsplash.com/random/?tech,line",
+    "https://source.unsplash.com/random/?tech,railroad",
+    "https://source.unsplash.com/random/?tech,pride",
+    "https://source.unsplash.com/random/?tech,too",
+    "https://source.unsplash.com/random/?tech,bottle",
+    "https://source.unsplash.com/random/?tech,base",
+    "https://source.unsplash.com/random/?tech,cell",
+    "https://source.unsplash.com/random/?tech,bag",
+    "https://source.unsplash.com/random/?tech,card",
+    "https://source.unsplash.com/random/?tech,keyboard",
+    "https://source.unsplash.com/random/?tech,monitor",
+    "https://source.unsplash.com/random/?tech,mouse",
+    "https://source.unsplash.com/random/?tech,developer",
+    "https://source.unsplash.com/random/?tech,programming",
+    "https://source.unsplash.com/random/?tech,code",
+    "https://source.unsplash.com/random/?tech,webdesign",
+    "https://source.unsplash.com/random/?tech,robotics",
+    "https://source.unsplash.com/random/?tech,artificialintelligence",
+    "https://source.unsplash.com/random/?tech,computer",
+    "https://source.unsplash.com/random/?tech,server",
+    "https://source.unsplash.com/random/?tech,data",
+    "https://source.unsplash.com/random/?tech,cloud",
+    "https://source.unsplash.com/random/?tech,iot",
+    "https://source.unsplash.com/random/?tech,security",
+    "https://source.unsplash.com/random/?tech,cybersecurity",
+    "https://source.unsplash.com/random/?tech,password",
+    "https://source.unsplash.com/random/?tech,encryption",
+    "https://source.unsplash.com/random/?tech,software",
+    "https://source.unsplash.com/random/?tech,hacker",
+    "https://source.unsplash.com/random/?tech,virtualreality",
+    "https://source.unsplash.com/random/?tech,augmentedreality",
+    "https://source.unsplash.com/random/?tech,smartphone",
+    "https://source.unsplash.com/random/?tech,tablet",
+    "https://source.unsplash.com/random/?tech,technology",
+    "https://source.unsplash.com/random/?tech,innovation",
+    "https://source.unsplash.com/random/?tech,startup",
+    "https://source.unsplash.com/random/?tech,entrepreneur",
+    "https://source.unsplash.com/random/?tech,engineering",
+    "https://source.unsplash.com/random/?tech,science",
+    "https://source.unsplash.com/random/?tech,lab",
+    "https://source.unsplash.com/random/?tech,biotechnology",
+    "https://source.unsplash.com/random/?tech,genetics",
+    "https://source.unsplash.com/random/?tech,medicine",
+    "https://source.unsplash.com/random/?tech,healthcare",
+    "https://source.unsplash.com/random/?tech,doctor",
+    "https://source.unsplash.com/random/?tech,hospital",
+    "https://source.unsplash.com/random/?tech,network",
+    "https://source.unsplash.com/random/?tech,wireless",
+    "https://source.unsplash.com/random/?tech,communication",
+    "https://source.unsplash.com/random/?tech,satellite",
+    "https://source.unsplash.com/random/?tech,astronomy",
+    "https://source.unsplash.com/random/?tech,space",
+    "https://source.unsplash.com/random/?tech,universe",
+    "https://source.unsplash.com/random/?tech,galaxy",
+    "https://source.unsplash.com/random/?tech,solarsystem",
+    "https://source.unsplash.com/random/?tech,planet",
+    "https://source.unsplash.com/random/?tech,moon",
+    "https://source.unsplash.com/random/?tech,star",
+    "https://source.unsplash.com/random/?tech,telescope",
+    "https://source.unsplash.com/random/?tech,spaceship",
+    "https://source.unsplash.com/random/?tech,astronaut",
+    "https://source.unsplash.com/random/?tech,earth"
+            // Add more image URLs here
+        ];
+
+        // Function to generate the gallery HTML
+        function generateGallery() {
+            const galleryContainer = document.getElementById("gallery");
+            galleryContainer.innerHTML = "";
+
+            imageUrls.forEach((url) => {
+                const galleryItem = document.createElement("div");
+                galleryItem.classList.add("gallery-item");
+
+                const content = document.createElement("div");
+                content.classList.add("content");
+
+                const image = document.createElement("img");
+                image.src = url;
+                image.alt = "";
+
+                content.appendChild(image);
+                galleryItem.appendChild(content);
+                galleryContainer.appendChild(galleryItem);
+            });
+        }
+
+        // Call the function to generate the gallery
+        generateGallery();
+    </script>
+</body>
+</html>

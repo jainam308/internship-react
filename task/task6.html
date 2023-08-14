@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<style>
+  body{
+
+    background:gray;
+  }
+  .heading{
+    text-align: center;
+  }
+  .t1{
+    background-color: gray;
+  }
+</style>
+<body>
+  <h1 class="heading"><u>Person's Data</u></h1>
+  <div class="row">
+    <div class="col">
+   
+    </div>
+  </div>
+    <table class="table table-hover table-dark  table-responsive table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">City</th>
+            <th scope="col">profilepic</th>
+            <th scope="col" > 
+              <input type="search" id="form1" size="5" class="form-control" placeholder="Search Data"/>
+              <select id="filterOption">
+              <option value="name">Name</option>
+              <option value="id">ID</option>
+              <option value="city">City</option>
+        
+          </th>
+          </tr>
+
+       
+        
+        </thead>
+        <tbody id="tbody">
+      
+        </tbody>
+      </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script>
+
+        const pepolearray = [
+   {
+     id: 1,
+     name: 'Jainam vora',
+     city: 'Surendranagar',
+      profilepic: 'images/c5.jpg',
+   },
+   {
+     id: 2,
+     name: 'Udit Vegad',
+     city: 'dwarka',
+     profilepic:'images/c1.jpg',
+   },
+   {
+     id: 3,
+     name: 'Yug',
+     city: 'Chicago',
+     profilepic: 'images/c2.jpg',
+   },
+   {
+     id: 4,
+     name: 'Kavy',
+     city: 'rajkot',
+     profilepic: 'images/c3.jpg',
+   },
+   {
+     id: 5,
+     name: 'Harsh',
+     city: 'london',
+     profilepic: 'images/c4.jpg',
+   },
+   {
+    id: 6,
+    name: 'Sara Johnson',
+    city: 'New York',
+    profilepic: 'images/c6.jpeg',
+  },
+  {
+    id: 7,
+    name: 'Alex Smith',
+    city: 'Los Angeles',
+    profilepic: 'images/c7.jpeg',
+  },
+  {
+    id: 8,
+    name: 'Emily Brown',
+    city: 'San Francisco',
+    profilepic: 'images/c8.jpeg',
+  },
+  {
+    id: 9,
+    name: 'Daniel Lee',
+    city: 'Toronto',
+    profilepic: 'images/c9.jpeg',
+  },
+  {
+    id: 10,
+    name: 'Sophia Clark',
+    city: 'Paris',
+    profilepic: 'images/c10.jpeg',
+  },
+  {
+    id: 11,
+    name: 'Liam Johnson',
+    city: 'Chicago',
+    profilepic: 'images/c11.jpeg',
+  },
+  {
+    id: 12,
+    name: 'Olivia Martinez',
+    city: 'Barcelona',
+    profilepic: 'images/c12.jpeg',
+  },
+  {
+    id: 13,
+    name: 'Noah Kim',
+    city: 'Seoul',
+    profilepic: 'images/c13.jpeg',
+  },
+  {
+    id: 14,
+    name: 'Ava Nguyen',
+    city: 'Sydney',
+    profilepic: 'images/c14.jpeg',
+  },
+  {
+    id: 15,
+    name: 'Ethan Wilson',
+    city: 'London',
+    profilepic: 'images/c15.jpeg',
+  },  
+ ];
+//  console.table(pepolearray);
+
+
+
+table = document.getElementById('tbody');
+
+pepolearray.forEach((p) => {
+    table.innerHTML += `
+        <tr>
+            <td class = ''>${p.id}</td>
+            <td class = ''>${p.name}</td>
+            <td class = ''>${p.city}</td>
+         
+            <td><img src = '${p.profilepic}' style = "height:80px;margin-left:15px"></td>
+        </tr>`;
+});
+function handleSearch() {
+      const searchInput = document.getElementById('form1');
+      const searchTerm = searchInput.value.toLowerCase(); // Convert input to lowercase for case-insensitive search
+      
+      // Filter the data based on the search term
+      const filteredData = pepolearray.filter((p) => {
+        return p.name.toLowerCase().includes(searchTerm) || p.city.toLowerCase().includes(searchTerm);
+      });
+      
+      // Populate the table with filtered data
+      const table = document.getElementById('tbody');
+      table.innerHTML = '';
+      filteredData.forEach((p) => {
+        table.innerHTML += `
+            <tr>
+                <td class = ''>${p.id}</td>
+                <td class = ''>${p.name}</td>
+                <td class = ''>${p.city}</td>
+                <td><img src='${p.profilepic}' style="height:80px;margin-left:15px"></td>
+            </tr>`;
+      });
+    }
+
+    // Add an event listener to the search input field
+    const searchInput = document.getElementById('form1');
+    searchInput.addEventListener('input', handleSearch);
+    
+        const Element = document.getElementById("tbody");
+        const tr = document.getElementById("mytr");
+
+        const select = document.getElementById("option");
+        function default_action() {
+            peopleArray.forEach(arr => {
+                return Element.innerHTML += `<tr>
+                            <td>${arr.person_id}</td>
+                            <td>${arr.name}</td>
+                            <td>${arr.city}</td>
+                            <td class='flex'><img src="${arr.profile_pic}" alt=""></td>
+                        </tr>`
+
+            })
+        };
+        function handleSearch() {
+    const searchInput = document.getElementById('form1');
+    const searchTerm = searchInput.value.toLowerCase();
+    const filterOption = document.getElementById('filterOption').value; // Get the selected filter option
+   
+    // Filter the data based on the search term and filter option
+    const filteredData = pepolearray.filter((p) => {
+        if (filterOption === 'id') {
+            return p.id.toString().includes(searchTerm);
+        } else if (filterOption === 'name') {
+            return p.name.toLowerCase().includes(searchTerm);
+        } else if (filterOption === 'city') {
+            return p.city.toLowerCase().includes(searchTerm);
+        }
+    });
+   
+    // Populate the table with filtered data
+    const table = document.getElementById('tbody');
+    table.innerHTML = '';
+    filteredData.forEach((p) => {
+        table.innerHTML += `
+            <tr>
+                <td class="">${p.id}</td>
+                <td class="">${p.name}</td>
+                <td class="">${p.city}</td>
+                <td><img src='${p.profilepic}' style="height:80px;margin-left:15px"></td>
+            </tr>`;
+    });
+}
+
+
+
+// Call the function to populate the table on page load
+window.onload = populateTable;
+
+ </script>
+</body>
+</html>
