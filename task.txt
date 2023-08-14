@@ -1,0 +1,18 @@
+task1:about react
+task2:download Node.js
+task3: Install react-app
+task4:npm start
+task5:    //display all
+    //display name for course in php
+    //display name for enno is 104
+    //remove for enno is 103
+    //display name for start with A7
+task6:
+display following data with tabular format and give searching functionality
+task7:
+Do various validations in diffrent form data
+task8:
+make an gallery of image which should has an image of smaller annd larger image
+Task9: Create an react  website which contain home,about,product,gallery,Contact
+Task10: Use props in your website
+Task11: Create an resume template in which  data like name ,course,skill,certificate should be  a json data

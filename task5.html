@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let students =[ {
+            enno:101,name:"Vedant1",course:"php"
+        },
+        {
+            enno:102,name:"Vedant2",course:"java"
+        },
+        {
+            enno:103,name:"Vedant3",course:"php"
+        },
+        {
+            enno:104,name:"Vedant4",course:"java"
+        },
+        {
+            enno:105,name:"AVedant5",course:"php"
+        }
+    ]
+    //display all
+    //display name for course in php
+    //display name for enno is 104
+    //remove for enno is 103
+    //display name for start with A7
+    //1
+    students.forEach(function(item,index) {
+        console.log( item,index);
+    });
+    //or
+    console.table(students);
+    //2
+    console.log("Student name having course with php");
+    console.log(students.filter(student => student.course ==="php"));
+    //3
+    console.log("Student name having enno is 104");
+   console.log (students.find(student => student.enno === 104).name);
+    //4
+     students = students.filter(s => s.enno != 103);
+     console.log("After removing the record of Student number");
+     console.table(students);
+    //5
+    console.log(students.filter(s => s.name.startsWith("A")));
+    </script>
+</body>
+</html> 
